@@ -1,0 +1,49 @@
+@media (prefers-color-scheme: dark) {
+    //SASS
+    // color-scheme: dark;
+
+    $scrollbar-track-bg-color: transparent;
+    $scrollbar-thumb-bg-color: #757575;
+    $scrollbar-thumb-bg-color--hover: #9d9d9d;
+    $scrollbar-thumb-bg-color--active: #9d9d9d;
+
+    $selection-bg-color: orange;
+
+    $bg-primary: black;
+    $bg-secondary: #1a1a1a;
+    $bg-tertiary: #5a5a5a;
+
+
+    $color-primary: white;
+
+    //CSS
+    :root {
+        --bg-primary: #{$bg-primary};
+        --bg-secondary: #{$bg-secondary};
+        --bg-tertiary: #{$bg-tertiary};
+
+        --color-primary: #{$color-primary};
+
+        --selection-bg-color:#{$selection-bg-color};
+
+        --scrollbar-track-bg-color:#{$scrollbar-track-bg-color};
+
+        --scrollbar-thumb-bg-color:#{$scrollbar-thumb-bg-color};
+        --scrollbar-thumb-bg-color--hover:#{$scrollbar-thumb-bg-color--hover};
+        --scrollbar-thumb-bg-color--active:#{$scrollbar-thumb-bg-color--active};
+
+        .index__audio-player {
+            background-position: 100%;
+        }
+
+    }
+
+    ::backdrop {
+
+        --scrollbar-track-bg-color:#{$scrollbar-track-bg-color};
+
+        --scrollbar-thumb-bg-color:#{$scrollbar-thumb-bg-color};
+        --scrollbar-thumb-bg-color--hover:#{$scrollbar-thumb-bg-color--hover};
+        --scrollbar-thumb-bg-color--active:#{$scrollbar-thumb-bg-color--active};
+    }
+}

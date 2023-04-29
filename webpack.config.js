@@ -6,7 +6,7 @@ const autoprefixer = require("autoprefixer");
 
 module.exports = {
   entry: {
-    index: ["./src/index.ts", "./src/style/sass/main.scss"],
+    index: ["./src/index.ts", "./src/sass/main.scss"],
   },
   mode: "production",
   output: {

@@ -37,16 +37,15 @@
 
 <body>
     <header class="header">
-        <h1 class="header__title"><span class="header__span header__span--background">Audio</span><span
-                class="header__span header__span--hollow">visualizer</span></h1>
+        <h1 class="header__title">Image ASCII art</h1>
+        <canvas class="header__canvas"></canvas>
     </header>
     <main class="index">
-        <audio-player class="index__audio-player--component" title="" is-playing="" current-time="" total-time=""
-            volume="" is-muted=""></audio-player>
-        <!-- Attributes: title, is-playing, current-time, total-time, volume, is-muted -->
-        <!-- <audio preload="auto"></audio>         -->
-        <canvas class="index__canvas index__canvas--bars"></canvas>
-        <button type="button" class="index__authorize-button">Authorize audio play</button>
+        <section class="index__dropdown">
+            <label for="dropzone">Dropzone</label>
+            <input type="file" class="hide" id="dropzone" accept="image/*" />
+            <canvas class="index__canvas"></canvas>
+        </section>
     </main>
     <footer class="footer">
         <p class="footer__paragraph">Made by: <a href="https://younes-portfolio-dev.vercel.app/" target="blank">Younes

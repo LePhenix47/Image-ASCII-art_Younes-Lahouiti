@@ -1,13 +1,15 @@
 {
   "name": "23.-ascii-art",
   "version": "1.0.0",
-  "description": "",
+  "description": "Image ASCII Art: Convert images to captivating text-based art. Explore algorithms and tools for transforming photos and illustrations into intricate ASCII compositions. Unleash creativity and infuse projects with unique visual aesthetics. Dive into ASCII art for nostalgic digital artwork. Create mesmerizing text-based masterpieces. Discover Image ASCII Art!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "sass --watch ./style/sass/main.scss:./style/css/style.css --style compressed",
+    "ts": "tsc --watch",
+    "dev": "webpack --watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "Younes LAHOUITI",
   "devDependencies": {
     "autoprefixer": "^10.4.1",
     "css-loader": "^6.5.2",

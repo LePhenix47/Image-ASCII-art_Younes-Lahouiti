@@ -1,0 +1,9 @@
+@use "../utils/" as *;
+
+.index {
+    position: relative;
+
+    &__canvas {
+        position: absolute;
+    }
+}

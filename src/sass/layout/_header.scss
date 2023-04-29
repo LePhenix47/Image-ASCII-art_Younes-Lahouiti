@@ -1,0 +1,16 @@
+@use "../utils/" as *;
+
+.header {
+    @include center-flex-column;
+    position: relative;
+
+    &__title {}
+
+    &__canvas {
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+    }
+
+}
