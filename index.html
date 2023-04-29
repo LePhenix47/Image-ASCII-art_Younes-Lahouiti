@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph     -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Home page" />
+    <meta property="og:description" content="" />
+    <!-- <meta property="og:image" content="/profile-pic.jpg" /> -->
+    <meta property="og:image:width" content="130" />
+    <meta property="og:image:height" content="170" />
+    <meta property="og:url" content="https://younes-portfolio-dev.vercel.app/" />
+
+    <!-- Title -->
+    <title>ASCII Image art</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./dist/style.css" />
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/904e9ee361.js" crossorigin="anonymous"></script>
+
+    <!-- Page logo -->
+    <link rel="icon" type="image/png" href="./public/images/png/visualizer-icon.png" />
+
+    <!-- JS -->
+    <script defer src="./dist/index.js"></script>
+
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header__title"><span class="header__span header__span--background">Audio</span><span
+                class="header__span header__span--hollow">visualizer</span></h1>
+    </header>
+    <main class="index">
+        <audio-player class="index__audio-player--component" title="" is-playing="" current-time="" total-time=""
+            volume="" is-muted=""></audio-player>
+        <!-- Attributes: title, is-playing, current-time, total-time, volume, is-muted -->
+        <!-- <audio preload="auto"></audio>         -->
+        <canvas class="index__canvas index__canvas--bars"></canvas>
+        <button type="button" class="index__authorize-button">Authorize audio play</button>
+    </main>
+    <footer class="footer">
+        <p class="footer__paragraph">Made by: <a href="https://younes-portfolio-dev.vercel.app/" target="blank">Younes
+                Lahouiti</a></p>
+    </footer>
+
+</body>
+
+</html>
