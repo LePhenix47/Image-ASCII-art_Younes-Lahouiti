@@ -1,4 +1,4 @@
-import { spliceArray } from "./string.functions";
+import { spliceArray } from "./array.functions";
 
 /**
  * Retrieves the values of an object inside an array.

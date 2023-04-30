@@ -11,7 +11,56 @@
         @include center-flex-column(50px)
     }
 
-    & drop-zone {}
+    &.dragging .index__overlay {
+        opacity: 50%;
+        z-index: 69;
+    }
+
+    &__dropzone {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        justify-content: center;
+        position: relative;
+        --bg: #f7fafb;
+        --border: #d7dcde;
+        aspect-ratio: 1/1;
+        background-color: var(--bg);
+        border: 5px dashed var(--border);
+        border-radius: 15px;
+        height: 300px;
+        transition: border .35s ease-in-out, filter .35s ease-in-out
+    }
+
+    &__dropzone.active {
+        border: 5px solid var(--border);
+        filter: brightness(1.25)
+    }
+
+    &__label {
+        --color: #62615b;
+        align-items: center;
+        aspect-ratio: 1/1;
+        color: var(--color);
+        display: inline-flex;
+        flex-direction: column;
+        gap: 35px;
+        height: inherit;
+        justify-content: center
+    }
+
+    &__label>svg {
+        order: -1
+    }
+
+    &__canvas {
+        color: inherit;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        z-index: -1
+    }
 
 
 
@@ -35,6 +84,20 @@
 
     &__image {
         @include fit-image;
+    }
+
+    &__dropzone.dragging>.index__overlay {
+        opacity: 50%;
+        z-index: 69;
+    }
+
+    &__overlay {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        opacity: 0%;
+        background-color: black;
+        z-index: -1;
     }
 
     &__resolution-label {}

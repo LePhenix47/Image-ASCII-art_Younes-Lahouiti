@@ -1,3 +1,6 @@
+import { getArrayFrom } from "./array.functions";
+import { error } from "./console.functions";
+
 /**
  * A simplified version of `document.querySelector()`
  *
@@ -7,15 +10,16 @@
  */
 
 export function selectQuery(query: string, container?: any): any {
-  if (!container) {
+  const hasNoParentContainer: boolean = !container;
+  if (hasNoParentContainer) {
     return document.querySelector(query);
   }
   /**
    * We check if it's a web component, they always have a hyphen in their tag name
    */
-  const isWebComponent: boolean = container?.tagName?.includes("-");
+  const containerIsWebComponent: boolean = container?.tagName?.includes("-");
 
-  if (isWebComponent) {
+  if (containerIsWebComponent) {
     return container.shadowRoot.querySelector(query);
   }
 
@@ -30,7 +34,8 @@ export function selectQuery(query: string, container?: any): any {
  * @returns {any[]|null} - An array with all the elements selected or `null` if the element doesn't exist
  */
 export function selectQueryAll(query: string, container?: any): any[] {
-  if (!container) {
+  const hasNoParentContainer: boolean = !container;
+  if (hasNoParentContainer) {
     return Array.from(document.querySelectorAll(query));
   }
 
@@ -50,9 +55,6 @@ export function selectQueryAll(query: string, container?: any): any[] {
  * @returns {any[]} An array containing all child nodes of the parent element or null if the parent element has no children.
  */
 export function getChildren(elementOfReference: any | null): any[] {
-  if (!elementOfReference) {
-    return [];
-  }
   return Array.from(elementOfReference.children);
 }
 
@@ -90,7 +92,6 @@ export function getAncestor(
  */
 
 export function getComponentHost(elementOfReference: any): any {
-  //@ts-ignore
   return elementOfReference.getRootNode().host;
 }
 
@@ -250,18 +251,22 @@ export function replaceClass(
 /**
  * Retrieves the selected files from an input element or an event object
  *
- * @param {HTMLInputElement | Event} inputOrEvent - The input element or event object from which to retrieve the files
+ * @param {HTMLInputElement} inputElement - The input element or event object from which to retrieve the files
  *
  * @returns {File | File[]} - The selected file(s) from the input element or event
  */
-export function getInputFiles(
-  inputOrEvent: HTMLInputElement | Event
-): File | File[] {
-  const files: File[] = [];
+export async function getInputFiles(
+  inputElement: HTMLInputElement
+): Promise<File | File[]> {
+  try {
+    const files: File[] = getArrayFrom(inputElement.files);
 
-  const hasOnlyOneFile: boolean = files.length === 1;
-  if (hasOnlyOneFile) {
-    return files[0];
+    const hasOnlyOneFile: boolean = files.length === 1;
+    if (hasOnlyOneFile) {
+      return files[0];
+    }
+    return files;
+  } catch (fileRetrievalError) {
+    error({ fileRetrievalError });
   }
-  return files;
 }

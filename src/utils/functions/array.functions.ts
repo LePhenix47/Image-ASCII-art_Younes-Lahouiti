@@ -12,17 +12,11 @@ export function isValueArray(value: any): boolean {
 /**
  * Creates a new array by copying the contents of the provided array
  *
- * @param {any[]} arrayToCopy - The array to copy
+ * @param {any} arrayToCopy - The array or list to copy
  *
  * @returns {any[]} - The new array containing the copied elements
- *
- * @throws {Error} - If the argument passed is not an array
  */
-export function copyArray(arrayToCopy: any[]): any[] {
-  const isNotAnArray: boolean = !isValueArray(arrayToCopy);
-  if (isNotAnArray) {
-    throw new Error("Argument passed is not an array");
-  }
+export function getArrayFrom(arrayToCopy: any): any[] {
   return Array.from(arrayToCopy);
 }
 
@@ -44,7 +38,7 @@ export function spliceArray(
 ): { removedItems: any[]; newArray: any[] } {
   //We make a deep copy of the array to avoid mutating
   //the array passed in argument with the `splice()` method
-  let newArray: any[] = copyArray(originalArray);
+  let newArray: any[] = getArrayFrom(originalArray);
 
   let removedItems: any[] = [];
 

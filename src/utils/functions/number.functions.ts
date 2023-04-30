@@ -31,6 +31,7 @@ function getRandomNumber(
   } else if (mustIncludeOnlyMax) {
     return Math.floor(Math.random() * (max - min)) + min + 1;
   } else {
+    //We don't include either
     return Math.floor(Math.random() * (max - min - 1)) + min + 1;
   }
 }
