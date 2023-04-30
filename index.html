@@ -38,20 +38,24 @@
 
 <body>
     <header class="header">
-        <h1 class="header__title"><span class="header__title--ascii">@$[!!</span> image art</h1>
+        <h1 class="header__title" title="ASCII image art"><span class="header__title--ascii">@$[!!</span> image art</h1>
     </header>
     <main class="index">
         <section class="index__container">
-            <drop-zone></drop-zone>
-            <canvas class="index__canvas"></canvas>
+            <div class="index__image-preview">
+                <img src="" alt="" class="index__image" />
+                <drop-zone class="index__component"></drop-zone>
+                <canvas class="index__canvas"></canvas>
+            </div>
             <div class="index__controls">
-                <label class="index__resolution-label" for="range">Select a resolution</label>
+                <label class="index__resolution-label" for="range">Select a resolution:</label>
                 <input class="index__resolution-range" type="range" id="range" min="5" max="20" value="12" step="1" />
             </div>
     </main>
     <footer class="footer">
-        <p class="footer__paragraph">Made by: <a href="https://younes-portfolio-dev.vercel.app/" target="blank">Younes
-                Lahouiti</a></p>
+        <p class="footer__paragraph">
+            Made by: <a href="https://younes-portfolio-dev.vercel.app/" target="blank">Younes Lahouiti</a>
+        </p>
     </footer>
 
 </body>

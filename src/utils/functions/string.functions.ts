@@ -23,12 +23,20 @@ export function formatText(string: string, option: string): string | never {
     }
 
     case "titlecase": {
-      let stringArray = string.split(" ");
+      let stringArray: string[] = string.split(" ");
+
       for (let i = 0; i < stringArray.length; i++) {
-        stringArray[i] =
-          stringArray[i].substring(0, 1).toUpperCase() +
-          stringArray[i].slice(1).toLowerCase();
+        const uppercasedFirstLetter: string = stringArray[i]
+          .substring(0, 1)
+          .toUpperCase();
+
+        const lowercasedRemainingLetters: string = stringArray[i]
+          .slice(1)
+          .toLowerCase();
+
+        stringArray[i] = uppercasedFirstLetter + lowercasedRemainingLetters;
       }
+
       stringArray = stringArray.concat();
       return stringArray.toString();
     }
@@ -45,13 +53,16 @@ export function formatText(string: string, option: string): string | never {
  * Function that normalizes a string by removing diacritical marks
  * (replaces letters with accents by their "non-accented" counter-part).
  *
- * *ex: "crème brûlée" → "creme brulee"
+ * Example:
+ * ```md
+ * "crème brûlée" → "creme brulee"
+ * ```
  * @param {string} string - The string to be normalized.
  *
  * @returns {string|null} - The normalized string or null if the argument is not a string.
  */
 export function normalize(string: string): string | null {
-  const argumentIsNotAString = typeof string !== "string";
+  const argumentIsNotAString: boolean = typeof string !== "string";
   if (argumentIsNotAString) {
     log("Value passed in argument is not a string !");
     return null;
@@ -110,7 +121,7 @@ Ex: We have "Saturday" and we want to just end up with "at"
 
 ```js
 let str = "Saturday"
-str = sliceString(str, 1, 3);
+str = sliceString(str, 1, 3); //at
 ```
 
 @param {string} string - The input string to slice.
@@ -125,61 +136,6 @@ export function sliceString(
   endIndex: number
 ): string {
   return string.slice(startIndex, endIndex);
-}
-
-/**
- * Removes elements from an array and optionally inserts new elements in their place.
- *
- * @param {Array} array - The array to modify.
- * @param {number} startIndex - The index to start removing elements from.
- * @param {number} deleteCount - The number of elements to remove.
- * @param {...*} [items] - The elements to insert into the array.
- *
- * @returns {Object} - An object containing the removed items and the updated array.
- *
- * @throws {TypeError} - If the 'array' parameter is not an array or 'startIndex' and 'endIndex' are not numbers.
- * @throws {Error} - If the 'startIndex' or 'endIndex' parameter is out of bounds of the array.
- */
-export function spliceArray(
-  array: any[],
-  startIndex: number,
-  deleteCount: number,
-  ...items: any[]
-): { removedItems: any[]; newArray: any[] } {
-  const argumentInArrayIsNotValid: boolean = !Array.isArray(array);
-  if (argumentInArrayIsNotValid) {
-    throw new TypeError("The 'array' parameter must be an array");
-  }
-
-  const numberArgumentsAreInvalid: boolean =
-    isNaN(startIndex) || isNaN(deleteCount);
-  if (numberArgumentsAreInvalid) {
-    throw new TypeError(
-      "The 'startIndex' and 'deleteCount' parameters must be a number"
-    );
-  }
-
-  const indexesAreOutOfBounds: boolean =
-    startIndex < 0 || startIndex >= array.length;
-  if (indexesAreOutOfBounds) {
-    throw new Error("The 'startIndex' parameter is out of bounds of the array");
-  }
-
-  //We make a deep copy of the array to avoid mutating
-  //the array passed in argument with the `splice()` method
-  let newArray: any[] = [...array];
-
-  let removedItems: any[] = [];
-
-  const hasItems: boolean = !!items.length;
-  if (hasItems) {
-    //The `.splice()` method returns
-    removedItems = newArray.splice(startIndex, deleteCount, ...items);
-  } else {
-    removedItems = newArray.splice(startIndex, deleteCount);
-  }
-
-  return { removedItems, newArray };
 }
 
 /**
@@ -214,13 +170,14 @@ export function toPercent(number: number): string {
 }
 
 /**
- * Generates an array of characters based on the provided Unicode character codes range.
+ * Generates an array of characters based on the provided Unicode character codes range
  * How the fromCodePoint method works:
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint
  *
- * @param {number} startCodePoint - The Unicode code point of the starting character.
- * @param {number} endCodePoint - The Unicode code point of the ending character (inclusive).
- * @returns {string[]} An array of characters within the specified Unicode range.
+ * @param {number} startCodePoint - The Unicode code point of the starting character (inclusive)
+ * @param {number} endCodePoint - The Unicode code point of the ending character (inclusive too)
+ *
+ * @returns {string[]} An array of characters within the specified Unicode range
  */
 export function generateUnicodeCharFromRange(
   startCodePoint: number,

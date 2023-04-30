@@ -7,13 +7,20 @@
     @include center-flex-column;
 
     &__container {
-        position: relative;
 
-        @include center-flex-column(25px)
+        @include center-flex-column(50px)
     }
 
     & drop-zone {}
 
+
+
+    &__image-preview {
+        min-height: 305px;
+        aspect-ratio: 1/1;
+
+        position: relative; //Relative to the canvas 
+    }
 
     &__canvas {
         z-index: -1;
@@ -26,17 +33,13 @@
         width: 100%;
     }
 
-    &__controls {
-        @include center-flex;
+    &__image {
+        @include fit-image;
     }
 
     &__resolution-label {}
 
     &__resolution-range {
-
-        // -webkit-appearance: none;
-        // -moz-appearance: none;
-        // appearance: none;
         background-color: var(--bg-primary);
         border-radius: 25px;
         height: 10px;
@@ -45,7 +48,20 @@
 
         @include input-range-style;
 
+        &:focus {
+            outline: 2px solid currentColor;
+        }
+    }
+
+    &__controls {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
 
     }
+
 
 }

@@ -1,3 +1,11 @@
+import { log } from "../utils/functions/console.functions";
+import {
+  addClass,
+  getComponentHost,
+  removeClass,
+  selectQuery,
+} from "../utils/functions/dom.functions";
+
 const dropzoneTemplateElement: HTMLTemplateElement =
   document.createElement("template");
 
@@ -325,9 +333,86 @@ class DropZone extends HTMLElement {
     shadowRoot.appendChild(clonedTemplate);
   }
 
-  connectedCallback() {}
+  //Setters and getters
 
-  disconnectedCallback() {}
+  /**
+   * An array of attribute names to observe for changes.
+   *
+   * @readonly
+   * @static
+   * @type {string[]}
+   */
+  static get observedAttributes(): string[] {
+    //We indicate the list of attributes that the custom element wants to observe for changes.
+    return [];
+  }
+
+  connectedCallback() {
+    const labelDropzone: HTMLLabelElement = selectQuery(
+      "label",
+      this.shadowRoot
+    );
+
+    const inputDropzone: HTMLInputElement = selectQuery(
+      "input",
+      this.shadowRoot
+    );
+    inputDropzone.addEventListener("change", (e) => {
+      log(e);
+      log(
+        { inputDropzone },
+        "is an HTML Input?",
+        inputDropzone instanceof HTMLInputElement
+      );
+      log(
+        { e },
+        "is an HTML Input?",
+        inputDropzone instanceof HTMLInputElement
+      );
+    });
+  }
+
+  disconnectedCallback() {
+    const labelDropzone: HTMLLabelElement = selectQuery(
+      "label",
+      this.shadowRoot
+    );
+
+    const inputDropzone: HTMLInputElement = selectQuery(
+      "input",
+      this.shadowRoot
+    );
+    inputDropzone.addEventListener("change", (e) => {});
+  }
 }
 
 customElements.define("drop-zone", DropZone);
+
+/*
+    Functions for the event listeners
+*/
+function handleDragEnter(event: DragEvent) {
+  event.preventDefault();
+  //@ts-ignore
+  const labelDropzone: HTMLLabelElement = event.currentTarget;
+
+  addClass(labelDropzone, "active");
+}
+
+function handleDragLeave(event: DragEvent) {
+  event.preventDefault();
+  //@ts-ignore
+  const labelDropzone: HTMLLabelElement = event.currentTarget;
+
+  removeClass(labelDropzone, "active");
+}
+
+function handleImageDrop(event: DragEvent) {
+  event.preventDefault();
+
+  const fileUploaded: File = event.dataTransfer.files[0];
+
+  const componentHost = getComponentHost(event.currentTarget);
+}
+
+function handleImageUpload(event: Event) {}

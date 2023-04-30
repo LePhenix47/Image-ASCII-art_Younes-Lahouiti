@@ -151,9 +151,9 @@ export function appendChildToParent(
 /**
  * Adds or modifies an attribute to the given element
  *
- * @param element The element to add the attribute to
- * @param property The name of the attribute to add
- * @param value The value to set the attribute to
+ * @param {any} element The element to add the attribute to
+ * @param {string} property The name of the attribute to add
+ * @param {any} value The value to set the attribute to
  */
 export function modifyAttribute(
   element: any,
@@ -194,7 +194,7 @@ export function replaceAttribute(
 /**
  * Enables the specified element by removing the "disabled" attribute and setting the "enabled" attribute.
  *
- * @param element - The element to enable.
+ * @param {any} element - The element to enable.
  */
 export function enableElement(element: any): void {
   replaceAttribute(element, "disabled", "enabled");
@@ -203,7 +203,7 @@ export function enableElement(element: any): void {
 /**
  * Disables the specified element by removing the "enabled" attribute and setting the "disabled" attribute.
  *
- * @param element - The element to disable.
+ * @param {any} element - The element to disable.
  */
 export function disableElement(element: any): void {
   replaceAttribute(element, "enabled", "disabled");
@@ -213,6 +213,7 @@ export function disableElement(element: any): void {
  * Adds a class name to a given element's class list
  * @param {any} element - The element to add the class to
  * @param {string} className - The class name to add
+ *
  * @returns {void}
  */
 export function addClass(element: any, className: string): void {
@@ -223,6 +224,7 @@ export function addClass(element: any, className: string): void {
  * Removes a class name from a given element's class list
  * @param {any} element - The element to remove the class from
  * @param {string} className - The class name to remove
+ *
  * @returns {void}
  */
 export function removeClass(element: any, className: string): void {
@@ -234,6 +236,7 @@ export function removeClass(element: any, className: string): void {
  * @param {any} element - The element to replace the class name in
  * @param {string} oldClassName - The old class name to replace
  * @param {string} newClassName - The new class name to replace with
+ *
  * @returns {void}
  */
 export function replaceClass(
@@ -242,4 +245,23 @@ export function replaceClass(
   newClassName: string
 ): void {
   element.classList.replace(oldClassName, newClassName);
+}
+
+/**
+ * Retrieves the selected files from an input element or an event object
+ *
+ * @param {HTMLInputElement | Event} inputOrEvent - The input element or event object from which to retrieve the files
+ *
+ * @returns {File | File[]} - The selected file(s) from the input element or event
+ */
+export function getInputFiles(
+  inputOrEvent: HTMLInputElement | Event
+): File | File[] {
+  const files: File[] = [];
+
+  const hasOnlyOneFile: boolean = files.length === 1;
+  if (hasOnlyOneFile) {
+    return files[0];
+  }
+  return files;
 }
