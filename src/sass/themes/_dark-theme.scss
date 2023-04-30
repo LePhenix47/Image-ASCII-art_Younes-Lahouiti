@@ -37,12 +37,9 @@
         }
 
         .index {
-            &__dropzone {
+            &__label {
                 --bg: #030607;
                 --border: #202527;
-            }
-
-            &__label {
                 --color: #9d9ea4;
             }
         }

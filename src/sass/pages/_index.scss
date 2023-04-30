@@ -11,44 +11,39 @@
         @include center-flex-column(50px)
     }
 
-    &.dragging .index__overlay {
+    &.dragging>.index__overlay {
         opacity: 50%;
         z-index: 69;
     }
 
-    &__dropzone {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        justify-content: center;
-        position: relative;
+    &__label {
+        --color: #62615b;
         --bg: #f7fafb;
         --border: #d7dcde;
+
+        @include center-flex-column;
+
+        position: relative;
+
         aspect-ratio: 1/1;
+        height: 300px;
+
         background-color: var(--bg);
+        color: var(--color);
+
         border: 5px dashed var(--border);
         border-radius: 15px;
-        height: 300px;
-        transition: border .35s ease-in-out, filter .35s ease-in-out
+
+
+        transition: border .35s ease-in-out, filter .35s ease-in-out;
     }
 
-    &__dropzone.active {
+    &__label.dragging {
+        z-index: 420;
         border: 5px solid var(--border);
         filter: brightness(1.25)
     }
 
-    &__label {
-        --color: #62615b;
-        align-items: center;
-        aspect-ratio: 1/1;
-        color: var(--color);
-        display: inline-flex;
-        flex-direction: column;
-        gap: 35px;
-        height: inherit;
-        justify-content: center
-    }
 
     &__label>svg {
         order: -1
