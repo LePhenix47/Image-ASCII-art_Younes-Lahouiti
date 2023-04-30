@@ -96,3 +96,64 @@
 
     overflow: hidden;
 }
+
+
+//Element speific mixins:
+
+@mixin input-range-style {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    overflow: hidden;
+
+    --bg: rgb(59, 59, 59);
+
+    &::-webkit-slider-runnable-track {
+        background-color: var(--bg);
+        border-radius: 100vmax;
+        height: 16px;
+
+
+        &:hover {}
+    }
+
+    &::-moz-range-track {
+        background-color: var(--bg);
+        border-radius: 100vmax;
+        height: 10px;
+
+
+        &:hover {}
+    }
+
+
+    &::-webkit-slider-thumb {
+        // -webkit-appearance: none;
+        // appearance: none;
+
+        height: 10px;
+        width: 10px;
+
+        color: red;
+
+        border: transparent;
+
+        &:hover {}
+    }
+
+
+    &::-moz-range-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+
+        height: 10px;
+        width: 10px;
+
+        background-color: red;
+
+        border: transparent;
+
+
+        &:hover {}
+    }
+}

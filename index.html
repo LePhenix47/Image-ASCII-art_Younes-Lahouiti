@@ -13,7 +13,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Home page" />
     <meta property="og:description" content="" />
-    <!-- <meta property="og:image" content="/profile-pic.jpg" /> -->
+
+    <meta property="og:image" content="/profile-pic.jpg" />
     <meta property="og:image:width" content="130" />
     <meta property="og:image:height" content="170" />
     <meta property="og:url" content="https://younes-portfolio-dev.vercel.app/" />
@@ -28,7 +29,7 @@
     <script src="https://kit.fontawesome.com/904e9ee361.js" crossorigin="anonymous"></script>
 
     <!-- Page logo -->
-    <link rel="icon" type="image/png" href="./public/images/png/visualizer-icon.png" />
+    <link rel="icon" type="image/png" href="./public/png/icon.png" />
 
     <!-- JS -->
     <script defer src="./dist/index.js"></script>
@@ -37,15 +38,16 @@
 
 <body>
     <header class="header">
-        <h1 class="header__title">Image ASCII art</h1>
-        <canvas class="header__canvas"></canvas>
+        <h1 class="header__title"><span class="header__title--ascii">@$[!!</span> image art</h1>
     </header>
     <main class="index">
-        <section class="index__dropdown">
-            <label for="dropzone">Dropzone</label>
-            <input type="file" class="hide" id="dropzone" accept="image/*" />
+        <section class="index__container">
+            <drop-zone></drop-zone>
             <canvas class="index__canvas"></canvas>
-        </section>
+            <div class="index__controls">
+                <label class="index__resolution-label" for="range">Select a resolution</label>
+                <input class="index__resolution-range" type="range" id="range" min="5" max="20" value="12" step="1" />
+            </div>
     </main>
     <footer class="footer">
         <p class="footer__paragraph">Made by: <a href="https://younes-portfolio-dev.vercel.app/" target="blank">Younes

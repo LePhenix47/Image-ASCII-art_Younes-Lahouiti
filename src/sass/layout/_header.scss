@@ -2,9 +2,15 @@
 
 .header {
     @include center-flex-column;
-    position: relative;
 
-    &__title {}
+    &__title {
+        margin-block: 25px;
+
+        &--ascii {
+            font-family: "Consolas";
+        }
+    }
+
 
     &__canvas {
         position: absolute;

@@ -9,8 +9,8 @@
 
     $selection-bg-color: orange;
 
-    $bg-primary: black;
-    $bg-secondary: #1a1a1a;
+    $bg-primary: #2e3043;
+    $bg-secondary: #1d1d1d;
     $bg-tertiary: #5a5a5a;
 
 
@@ -32,9 +32,21 @@
         --scrollbar-thumb-bg-color--hover:#{$scrollbar-thumb-bg-color--hover};
         --scrollbar-thumb-bg-color--active:#{$scrollbar-thumb-bg-color--active};
 
-        .index__audio-player {
-            background-position: 100%;
+        body {
+            background-position: 100% 100% !important;
         }
+
+        .index {
+            &__dropzone {
+                --bg: #030607;
+                --border: #202527;
+            }
+
+            &__label {
+                --color: #9d9ea4;
+            }
+        }
+
 
     }
 

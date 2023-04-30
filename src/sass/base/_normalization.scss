@@ -25,7 +25,9 @@
 
 *::selection {
     -webkit-text-stroke: transparent;
+
     color: currentColor;
+
     background-color: var(--selection-bg-color);
 }
 
@@ -38,12 +40,18 @@ html {
 
 
 body {
-    min-height: 80dvh;
+    min-height: 100dvh;
+
     overflow-x: hidden;
-    background-color: var(--bg-primary);
+
+    background-image: linear-gradient(180deg, #a4d6de, #dddddd, #4f4869, #1d1d1d);
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+
     color: var(--color-primary);
+
     transition:
-        background-color 350ms ease-in-out,
+        background-position 600ms ease-in-out,
         color 350ms ease-in-out,
     ;
 }
@@ -143,7 +151,7 @@ option {
 }
 
 //Makes empty text blocks elements disappear
-:empty:is(p, h1, h2, h3, h4,
-    h5, h6, span) {
-    display: none;
+:is(p, h1, h2, h3, h4,
+    h5, h6, span):empty {
+    display: none !important;
 }
