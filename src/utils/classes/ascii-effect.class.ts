@@ -2,7 +2,6 @@ import { Cell } from "./cell.class";
 
 export class AsciiEffect {
   private imageCellArray: any[];
-  private symbols: any[];
   private pixels: ImageData;
   context: CanvasRenderingContext2D;
   width: number;
@@ -109,5 +108,17 @@ export class AsciiEffect {
     } else {
       return " "; // Use space symbol for very low values
     }
+  }
+
+  private drawAscii() {
+    this.context.clearRect(0, 0, this.width, this.height);
+    for (const cell of this.imageCellArray) {
+      cell.draw();
+    }
+  }
+
+  draw(cellSize: number) {
+    this.scanImage(cellSize);
+    this.drawAscii();
   }
 }
