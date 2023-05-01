@@ -10,12 +10,18 @@ import {
 } from "./utils/functions/dom.functions";
 import {
   checkFileType,
+  fileToBase64String,
   getInputFiles,
   getTranferedFiles,
 } from "./utils/functions/file.functions";
 
+//Components
+import "./components/spin-loader.component";
+
+//Main code
+
 const main: HTMLElement = selectQuery("main");
-const labelDropzone: HTMLLabelElement = selectQuery(".index__label"); // Assuming this is the dropzone element
+const labelDropzone: HTMLLabelElement = selectQuery(".index__label");
 const fileUploadInput: HTMLInputElement = selectQuery(".index__input");
 
 document.addEventListener("dragenter", handleDragEnter);
@@ -95,6 +101,8 @@ async function handleFileDrop(event: DragEvent): Promise<void> {
       throw "File dropped is not an image!";
     }
     log(file);
+    const base64String = await fileToBase64String(file);
+    setImageSource(base64String);
   } catch (fileDropError) {
     error("File drop error:", { fileDropError });
     const labelSVG: string = /* html */ `
@@ -137,6 +145,8 @@ async function handleFileUpload(event: Event): Promise<void> {
       throw "File uploaded is not an image!";
     }
     log(file);
+    const base64String = await fileToBase64String(file);
+    setImageSource(base64String);
   } catch (fileUploadError) {
     error("File upload error:", { fileUploadError });
     const labelSVG: string = /* html */ `
@@ -149,5 +159,28 @@ async function handleFileUpload(event: Event): Promise<void> {
     `;
     const htmlContent: string = `${labelSVG} ${fileUploadError}`;
     setInnerHTML(labelDropzone, htmlContent);
+  }
+}
+
+/**
+ * Sets the source of an image element with the provided Base64 string
+ *
+ * @param {string} base64String - The Base64 string representing the image
+ *
+ * @returns {void}
+ */
+function setImageSource(base64String: string): void {
+  image.src = base64String;
+  log(image);
+}
+
+const image: HTMLImageElement = selectQuery(".index__image");
+image.addEventListener("load", handleImageChange);
+
+async function handleImageChange(event: Event) {
+  try {
+    log("image change", event);
+  } catch (imageChangeError) {
+    error({ imageChangeError });
   }
 }

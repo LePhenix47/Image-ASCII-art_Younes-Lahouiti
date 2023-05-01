@@ -18,8 +18,8 @@
 
     &__label {
         --color: #62615b;
-        --bg: #f7fafb;
         --border: #d7dcde;
+        --bg: #f7fafb;
 
         @include center-flex-column(20px);
 
@@ -32,10 +32,23 @@
         color: var(--color);
 
         border: 5px dashed var(--border);
-        border-radius: 15px;
+        border-radius: inherit;
 
 
         transition: border .35s ease-in-out, filter .35s ease-in-out;
+
+        &::after {
+
+            content: "Accepts any image type: SVG, PNG, JPG, JPEG...";
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 120%;
+
+            text-align: center;
+
+
+        }
     }
 
     &__label.dragging {
@@ -60,25 +73,38 @@
 
 
     &__image-preview {
+        @include center-flex-column;
+        border-radius: 15px;
+
         min-height: 305px;
         aspect-ratio: 1/1;
 
         position: relative; //Relative to the canvas 
     }
 
+    & spin-loader {
+        position: absolute;
+        scale: 150%;
+        z-index: 69420;
+    }
+
     &__canvas {
         z-index: -1;
         color: inherit;
+
+        border-radius: inherit;
 
         position: absolute;
         @include absolute-center;
 
         height: 100%;
         width: 100%;
+
+        background-color: black;
     }
 
     &__image {
-        @include fit-image;
+        // @include fit-image;
     }
 
     &__dropzone.dragging>.index__overlay {

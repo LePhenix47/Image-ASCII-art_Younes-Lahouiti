@@ -71,9 +71,9 @@ export function checkFileType(file: File, typeExpected: string): boolean {
  *
  * @param {File} fileToConvert - The File object to convert.
  *
- * @returns - A Promise that resolves with the base64 string representation of the file.
+ * @returns {Promise<string>} - A Promise that resolves with the base64 string representation of the file.
  */
-export function fileToBase64String(fileToConvert: File) {
+export function fileToBase64String(fileToConvert: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -90,6 +90,7 @@ export function fileToBase64String(fileToConvert: File) {
         return;
       }
 
+      //@ts-ignore
       resolve(base64MediaString);
     });
 
