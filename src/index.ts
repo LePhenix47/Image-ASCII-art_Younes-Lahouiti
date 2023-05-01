@@ -91,8 +91,8 @@ labelDropzone.addEventListener("drop", handleFileDrop);
 
 async function handleFileDrop(event: DragEvent): Promise<void> {
   event.preventDefault();
+  showLoader();
   try {
-    showLoader();
     removeOverlayAndHighlight();
 
     //@ts-ignore
@@ -135,8 +135,8 @@ fileUploadInput.addEventListener("change", handleFileUpload);
  * @returns {Promise<void>} A promise that resolves when the file upload is handled
  */
 async function handleFileUpload(event: Event): Promise<void> {
+  showLoader();
   try {
-    showLoader();
     //@ts-ignore
     const inputElement: HTMLInputElement = event.currentTarget;
     //@ts-ignore
