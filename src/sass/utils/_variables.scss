@@ -10,6 +10,8 @@ $bg-primary: #a4d6de;
 $bg-secondary: #dddddd;
 $bg-tertiary: #a5a5a5;
 
+$bg-canvas: #f7fafb;
+
 $color-primary: black;
 
 //CSS
@@ -17,6 +19,8 @@ $color-primary: black;
     --bg-primary: #{$bg-primary};
     --bg-secondary: #{$bg-secondary};
     --bg-tertiary: #{$bg-tertiary};
+
+    --bg-canvas: #{$bg-canvas};
 
     --color-primary: #{$color-primary};
 

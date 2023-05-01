@@ -3,6 +3,7 @@ import { error, log } from "./utils/functions/console.functions";
 
 import {
   addClass,
+  modifyAttribute,
   removeClass,
   selectQuery,
   setInnerHTML,
@@ -91,6 +92,7 @@ labelDropzone.addEventListener("drop", handleFileDrop);
 async function handleFileDrop(event: DragEvent): Promise<void> {
   event.preventDefault();
   try {
+    showLoader();
     removeOverlayAndHighlight();
 
     //@ts-ignore
@@ -134,6 +136,7 @@ fileUploadInput.addEventListener("change", handleFileUpload);
  */
 async function handleFileUpload(event: Event): Promise<void> {
   try {
+    showLoader();
     //@ts-ignore
     const inputElement: HTMLInputElement = event.currentTarget;
     //@ts-ignore
@@ -177,10 +180,50 @@ function setImageSource(base64String: string): void {
 const image: HTMLImageElement = selectQuery(".index__image");
 image.addEventListener("load", handleImageChange);
 
-async function handleImageChange(event: Event) {
+const spinLoader: HTMLElement = selectQuery("spin-loader");
+
+/**
+ * Handles the image change event and shows/hides the loader
+ *
+ * @param {Event} event - The event object
+ *
+ * @returns {Promise<void>} A promise that resolves when the loader is hidden
+ */
+async function handleImageChange(event: Event): Promise<void> {
   try {
     log("image change", event);
+    removeEvents();
   } catch (imageChangeError) {
     error({ imageChangeError });
+  } finally {
+    hideLoader();
   }
+}
+
+/**
+ * Shows the loader by modifying the "show" attribute of the spin loader element to true
+ *
+ * @returns {void}
+ */
+function showLoader(): void {
+  modifyAttribute(spinLoader, "show", true);
+}
+
+/**
+ * Hides the loader by modifying the "show" attribute of the spin loader element to false.
+ *
+ * @returns {void}
+ */
+function hideLoader(): void {
+  modifyAttribute(spinLoader, "show", false);
+}
+
+/*
+
+*/
+function removeEvents() {
+  addClass(labelDropzone, "hide");
+
+  document.removeEventListener("dragenter", handleDragEnter);
+  document.removeEventListener("dragleave", handleDragLeave);
 }

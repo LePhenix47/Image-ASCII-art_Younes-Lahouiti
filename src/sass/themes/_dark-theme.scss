@@ -13,6 +13,8 @@
     $bg-secondary: #1d1d1d;
     $bg-tertiary: #5a5a5a;
 
+    $bg-canvas: #030607;
+
 
     $color-primary: white;
 
@@ -21,6 +23,8 @@
         --bg-primary: #{$bg-primary};
         --bg-secondary: #{$bg-secondary};
         --bg-tertiary: #{$bg-tertiary};
+
+        --bg-canvas: #{$bg-canvas};
 
         --color-primary: #{$color-primary};
 
