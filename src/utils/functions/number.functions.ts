@@ -15,7 +15,9 @@ function getRandomNumber(
 ): number {
   const hasInvalidArgument: boolean = min > max || max < min;
   if (hasInvalidArgument) {
-    throw new Error(`Unexpected error occured values: min > max or max < min`);
+    throw new Error(
+      `Unexpected error occured in the passed argument values: min > max or max < min`
+    );
   }
 
   const mustIncludeBoth: boolean = includeMin && includeMax;

@@ -1,6 +1,3 @@
-import { getArrayFrom } from "./array.functions";
-import { error } from "./console.functions";
-
 /**
  * A simplified version of `document.querySelector()`
  *
@@ -249,24 +246,25 @@ export function replaceClass(
 }
 
 /**
- * Retrieves the selected files from an input element or an event object
+ * Sets the text content of an HTML element
  *
- * @param {HTMLInputElement} inputElement - The input element or event object from which to retrieve the files
- *
- * @returns {File | File[]} - The selected file(s) from the input element or event
+ * @param {any} element - The HTML element to set the text content for
+ * @param {string} text - The text content to set
+ * @returns {void}
  */
-export async function getInputFiles(
-  inputElement: HTMLInputElement
-): Promise<File | File[]> {
-  try {
-    const files: File[] = getArrayFrom(inputElement.files);
 
-    const hasOnlyOneFile: boolean = files.length === 1;
-    if (hasOnlyOneFile) {
-      return files[0];
-    }
-    return files;
-  } catch (fileRetrievalError) {
-    error({ fileRetrievalError });
-  }
+export function setTextContent(element: any, text: string): void {
+  element.textContent = text;
+}
+
+/**
+ * Sets the inner HTML content of an HTML element
+ *
+ * @param {HTMLElement} element - The HTML element to set the inner HTML content for
+ * @param {string} htmlContent - The HTML content to set
+ *
+ * @returns {void}
+ */
+export function setInnerHTML(element: HTMLElement, htmlContent: string): void {
+  element.innerHTML = htmlContent;
 }

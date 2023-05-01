@@ -21,7 +21,7 @@
         --bg: #f7fafb;
         --border: #d7dcde;
 
-        @include center-flex-column;
+        @include center-flex-column(20px);
 
         position: relative;
 
