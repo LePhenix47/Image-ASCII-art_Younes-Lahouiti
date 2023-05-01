@@ -105,6 +105,8 @@
 
     &__image {
         // @include fit-image;
+        width: inherit;
+        height: inherit;
     }
 
     &__dropzone.dragging>.index__overlay {

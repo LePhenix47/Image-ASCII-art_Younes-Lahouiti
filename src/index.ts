@@ -18,12 +18,25 @@ import {
 
 //Components
 import "./components/spin-loader.component";
+import { drawImageCanvas } from "./utils/functions/canvas.functions";
 
 //Main code
 
 const main: HTMLElement = selectQuery("main");
 const labelDropzone: HTMLLabelElement = selectQuery(".index__label");
 const fileUploadInput: HTMLInputElement = selectQuery(".index__input");
+
+const rangeInput: HTMLInputElement = selectQuery(".index__resolution-range");
+const rangeLabelSpan: HTMLSpanElement = selectQuery(
+  ".index__resolution-label--span"
+);
+rangeInput.addEventListener("input", changeResolution);
+function changeResolution(event: InputEvent) {
+  //@ts-ignore
+  const inputValue = event.target.value;
+
+  setTextContent(rangeLabelSpan, `${inputValue}px`);
+}
 
 document.addEventListener("dragenter", handleDragEnter);
 document.addEventListener("dragleave", handleDragLeave);
@@ -167,40 +180,7 @@ async function handleFileUpload(event: Event): Promise<void> {
   }
 }
 
-/**
- * Sets the source of an image element with the provided Base64 string
- *
- * @param {string} base64String - The Base64 string representing the image
- *
- * @returns {void}
- */
-function setImageSource(base64String: string): void {
-  image.src = base64String;
-  log(image);
-}
-
-const image: HTMLImageElement = selectQuery(".index__image");
-image.addEventListener("load", handleImageChange);
-
 const spinLoader: HTMLElement = selectQuery("spin-loader");
-
-/**
- * Handles the image change event and shows/hides the loader
- *
- * @param {Event} event - The event object
- *
- * @returns {Promise<void>} A promise that resolves when the loader is hidden
- */
-async function handleImageChange(event: Event): Promise<void> {
-  try {
-    log("image change", event);
-    removeEvents();
-  } catch (imageChangeError) {
-    error({ imageChangeError });
-  } finally {
-    hideLoader();
-  }
-}
 
 /**
  * Shows the loader by modifying the "show" attribute of the spin loader element to true
@@ -231,3 +211,50 @@ function removeEvents(): void {
   document.removeEventListener("dragenter", handleDragEnter);
   document.removeEventListener("dragleave", handleDragLeave);
 }
+
+/**
+ * Sets the source of an image element with the provided Base64 string
+ *
+ * @param {string} base64String - The Base64 string representing the image
+ *
+ * @returns {void}
+ */
+function setImageSource(base64String: string): void {
+  image.src = base64String;
+}
+/*
+//Canvas effect
+*/
+const image: HTMLImageElement = selectQuery(".index__image");
+image.addEventListener("load", handleImageChange);
+
+/**
+ * Handles the image change event and shows/hides the loader
+ *
+ * @param {Event} event - The event object
+ *
+ * @returns {Promise<void>} A promise that resolves when the loader is hidden
+ */
+async function handleImageChange(event: Event): Promise<void> {
+  try {
+    log("image change", event);
+    removeEvents();
+    canvasContext.drawImage(image, 0, 0);
+  } catch (imageChangeError) {
+    error({ imageChangeError });
+  } finally {
+    hideLoader();
+  }
+}
+
+const canvas: HTMLCanvasElement = selectQuery(".index__canvas");
+const canvasContext: CanvasRenderingContext2D = canvas.getContext("2d");
+
+const imagePreviewDiv: HTMLElement = selectQuery(".index__image-preview");
+
+function resizeCanvas() {
+  const { width, height }: DOMRect = imagePreviewDiv.getBoundingClientRect();
+  canvas.width = width;
+  canvas.height = height;
+}
+resizeCanvas();
