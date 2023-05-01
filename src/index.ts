@@ -117,6 +117,7 @@ async function handleFileDrop(event: DragEvent): Promise<void> {
     `;
     const htmlContent: string = `${labelSVG} ${fileDropError}`;
     setInnerHTML(labelDropzone, htmlContent);
+    hideLoader();
   }
 
   function removeOverlayAndHighlight() {
@@ -162,6 +163,7 @@ async function handleFileUpload(event: Event): Promise<void> {
     `;
     const htmlContent: string = `${labelSVG} ${fileUploadError}`;
     setInnerHTML(labelDropzone, htmlContent);
+    hideLoader();
   }
 }
 
@@ -218,10 +220,12 @@ function hideLoader(): void {
   modifyAttribute(spinLoader, "show", false);
 }
 
-/*
-
-*/
-function removeEvents() {
+/**
+ * Removes event listeners and hides the label dropzone element.
+ *
+ * @returns {void}
+ */
+function removeEvents(): void {
   addClass(labelDropzone, "hide");
 
   document.removeEventListener("dragenter", handleDragEnter);
