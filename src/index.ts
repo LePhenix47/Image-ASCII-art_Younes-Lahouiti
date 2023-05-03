@@ -27,6 +27,8 @@ const main: HTMLElement = selectQuery("main");
 const labelDropzone: HTMLLabelElement = selectQuery(".index__label");
 const fileUploadInput: HTMLInputElement = selectQuery(".index__input");
 
+const downloadButton: HTMLAnchorElement = selectQuery(".index__link");
+
 const rangeInput: HTMLInputElement = selectQuery(".index__resolution-range");
 const rangeLabelSpan: HTMLSpanElement = selectQuery(
   ".index__resolution-label--span"
@@ -34,11 +36,31 @@ const rangeLabelSpan: HTMLSpanElement = selectQuery(
 rangeInput.addEventListener("input", changeResolution);
 
 const rangeInputValue: number = Number(rangeInput.value);
-function changeResolution(event: InputEvent) {
+
+/**
+ * Changes the resolution of the ASCII image
+ *
+ * @param {InputEvent} event - The input event object
+ *
+ * @returns {void}
+ */
+function changeResolution(event: InputEvent): void {
   //@ts-ignore
-  const inputValue = event.target.value;
+  const inputValue = Number(event.target.value);
 
   setTextContent(rangeLabelSpan, `${inputValue}px`);
+
+  const userHasNotAddedImage: boolean = !asciiEffectHandler;
+  if (userHasNotAddedImage) {
+    return;
+  }
+
+  drawASCIIImage();
+
+  function drawASCIIImage() {
+    setCanvasContextFont(canvasContext, inputValue);
+    asciiEffectHandler.draw(inputValue);
+  }
 }
 
 document.addEventListener("dragenter", handleDragEnter);
@@ -67,7 +89,7 @@ function handleDragEnter(event: DragEvent): void {
 function handleDragOver(event: DragEvent): void {
   event.preventDefault();
 
-  addClass(labelDropzone, "dragging-over");
+  addClass(labelDropzone, "dragging");
 }
 
 /**
@@ -108,11 +130,18 @@ labelDropzone.addEventListener("drop", handleFileDrop);
 async function handleFileDrop(event: DragEvent): Promise<void> {
   event.preventDefault();
   showLoader();
+  log(event);
   try {
     removeOverlayAndHighlight();
 
     //@ts-ignore
     const file: File = await getTranferedFiles(event);
+
+    const isNotAFile: boolean = !file;
+    log(isNotAFile);
+    if (isNotAFile) {
+      throw "Data dropped is not a file!";
+    }
     //@ts-ignore
     const isNotAnImage: boolean = !checkFileType(file, "image");
     if (isNotAnImage) {
@@ -139,7 +168,6 @@ async function handleFileDrop(event: DragEvent): Promise<void> {
   function removeOverlayAndHighlight() {
     removeClass(main, "dragging");
     removeClass(labelDropzone, "dragging");
-    removeClass(labelDropzone, "dragging-over");
   }
 }
 
@@ -248,6 +276,9 @@ async function handleImageChange(event: Event): Promise<void> {
     removeEvents();
     resizeCanvas();
 
+    // Attach event listener to the download button
+    downloadButton.addEventListener("click", downloadAsciiImage);
+
     asciiEffectHandler = new AsciiEffect(
       canvasContext,
       image,
@@ -265,8 +296,40 @@ async function handleImageChange(event: Event): Promise<void> {
 
 const imagePreviewDiv: HTMLElement = selectQuery(".index__image-preview");
 
-function resizeCanvas() {
+/**
+ * Resize the canvas based on the size of the image preview div
+ *
+ * @returns {void}
+ */
+function resizeCanvas(): void {
   const { width, height }: DOMRect = imagePreviewDiv.getBoundingClientRect();
   canvas.width = width;
   canvas.height = height;
+}
+
+/**
+ * Set the font of the canvas context
+ *
+ * @param {CanvasRenderingContext2D} context - The canvas rendering context
+ * @param {number} fontSize - The font size to set
+ *
+ * @returns {void}
+ */
+function setCanvasContextFont(
+  context: CanvasRenderingContext2D,
+  fontSize: number
+): void {
+  context.font = `${fontSize}`;
+}
+
+// Function to trigger the download
+function downloadAsciiImage() {
+  // Convert canvas to data URL
+  const dataURL: string = canvas.toDataURL("image/png");
+
+  // Create a temporary link element
+  downloadButton.href = dataURL;
+
+  // Set the filename for the download
+  downloadButton.download = "ascii_image.png";
 }

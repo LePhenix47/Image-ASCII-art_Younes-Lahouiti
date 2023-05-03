@@ -39,7 +39,7 @@ export async function getTranferedFiles(
 ): Promise<File | File[]> {
   try {
     const filesTranfered: File[] = getArrayFrom(event.dataTransfer.files);
-    const hasOnlyOneFile: boolean = filesTranfered.length === 1;
+    const hasOnlyOneFile: boolean = filesTranfered.length <= 1;
     if (hasOnlyOneFile) {
       return filesTranfered[0];
     }

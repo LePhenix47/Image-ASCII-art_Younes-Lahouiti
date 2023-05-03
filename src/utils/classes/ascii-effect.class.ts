@@ -56,11 +56,12 @@ export class AsciiEffect {
         //Beyond here I have 0 idea what is happening
         const pos: number = pixelPosX + pixelPosY * this.pixelsData.width;
 
+        //We check if the pixel is transparent
         const alpha: number = this.pixelsData.data[pos + 3];
-        // const isTransparent: boolean = alpha < 128;
-        // if (isTransparent) {
-        //   continue;
-        // }
+        const isTransparent: boolean = alpha < 128;
+        if (isTransparent) {
+          continue;
+        }
 
         const red: number = this.pixelsData.data[pos + 0];
         const green: number = this.pixelsData.data[pos + 1];
@@ -73,8 +74,9 @@ export class AsciiEffect {
 
         // const isBrightEnough: boolean = total > 200;
         // if (isBrightEnough) {
-        // const newCell: Cell = new Cell(this.context, x, y, symbol, color);
-        // this.imageCellArray.push(newCell);
+        //   const newCell: Cell = new Cell(this.context, x, y, symbol, color);
+        //   this.imageCellArray.push(newCell);
+        // }
         const newCell: Cell = new Cell(this.context, x, y, symbol, color);
         this.imageCellArray.push(newCell);
       }
@@ -121,6 +123,6 @@ export class AsciiEffect {
 
   draw(cellSize: number) {
     this.scanImage(cellSize);
-    // this.drawAscii();
+    this.drawAscii();
   }
 }

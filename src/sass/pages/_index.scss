@@ -149,5 +149,22 @@
 
     }
 
+    &__link {
+        --bg: #0b3d45;
+        --color: #a4d6de;
+
+        color: var(--color);
+        background-color: var(--bg);
+
+        &:visited {
+            color: var(--color);
+            background-color: var(--bg);
+        }
+
+        padding: 10px 20px;
+        border-radius: 100vmax;
+
+    }
+
 
 }
