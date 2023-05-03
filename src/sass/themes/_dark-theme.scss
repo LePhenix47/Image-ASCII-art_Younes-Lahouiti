@@ -12,21 +12,25 @@
     $bg-primary: #2e3043;
     $bg-secondary: #1d1d1d;
     $bg-tertiary: #5a5a5a;
+    $bg-quaternary: #cbcde0;
 
     $bg-canvas: #030607;
 
 
     $color-primary: white;
+    $color-secondary: #2e3043;
 
     //CSS
     :root {
         --bg-primary: #{$bg-primary};
         --bg-secondary: #{$bg-secondary};
         --bg-tertiary: #{$bg-tertiary};
+        --bg-quaternary: #{$bg-quaternary};
 
         --bg-canvas: #{$bg-canvas};
 
         --color-primary: #{$color-primary};
+        --color-secondary: #{$color-secondary};
 
         --selection-bg-color:#{$selection-bg-color};
 
@@ -45,11 +49,6 @@
                 --bg: #030607;
                 --border: #202527;
                 --color: #9d9ea4;
-            }
-
-            &__link {
-                --bg: #cbcde0;
-                --color: #2e3043;
             }
         }
 

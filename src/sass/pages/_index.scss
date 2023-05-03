@@ -6,18 +6,37 @@
 
     @include center-flex-column;
 
-    &__container {
-
-        @include center-flex-column(50px)
-    }
-
     &.dragging>.index__overlay {
         opacity: 50%;
         z-index: 69;
     }
 
+    &__container {
+
+        @include center-flex-column(50px)
+    }
+
+    &__delete-button {
+        @include center-flex;
+
+        position: absolute;
+        top: -10%;
+        right: -10%;
+
+        border-radius: 50%;
+
+        aspect-ratio: 1/1;
+        padding: 5px;
+
+        color: var(--color-secondary);
+        background-color: var(--bg-quaternary);
+
+        z-index: 420;
+    }
+
+
     &__label {
-        --color: #62615b;
+        --color-tertiary: #62615b;
         --border: #d7dcde;
         --bg: #f7fafb;
 
@@ -29,7 +48,7 @@
         height: 300px;
 
         background-color: var(--bg);
-        color: var(--color);
+        color: var(--color-tertiary);
 
         border: 5px dashed var(--border);
         border-radius: inherit;
@@ -100,7 +119,7 @@
         height: 100%;
         width: 100%;
 
-        background-color: var(--bg-canvas);
+        background-color: var(--bg-quaternary-canvas);
     }
 
     &__image {
@@ -126,7 +145,7 @@
     &__resolution-label {}
 
     &__resolution-range {
-        background-color: var(--bg-primary);
+        background-color: var(--bg-quaternary-primary);
         border-radius: 25px;
         height: 10px;
 
@@ -150,15 +169,12 @@
     }
 
     &__link {
-        --bg: #0b3d45;
-        --color: #a4d6de;
-
-        color: var(--color);
-        background-color: var(--bg);
+        color: var(--color-secondary);
+        background-color: var(--bg-quaternary);
 
         &:visited {
-            color: var(--color);
-            background-color: var(--bg);
+            color: var(--color-secondary);
+            background-color: var(--bg-quaternary);
         }
 
         padding: 10px 20px;

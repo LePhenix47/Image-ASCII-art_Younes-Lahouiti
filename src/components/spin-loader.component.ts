@@ -80,7 +80,7 @@ const spinLoaderStyle: string = /*css*/ `
 `;
 const spinLoaderContent: string = /*html*/ `
  <svg class="svg" viewBox="0 0 50 50" width="50" height="50">
-  <circle class="svg__circle" cx="25" cy="25" r="20" fill="transparent" />
+  <circle class="svg__circle" cx="25" cy="25" r="20" fill="transparent" stroke-linecap="round" />
 </svg>
 `;
 

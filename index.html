@@ -43,7 +43,15 @@
     <main class="index">
         <div class="index__overlay no-pointer-events"></div>
         <section class="index__container">
-            <div class="index__image-preview">
+
+            <section class="index__image-preview">
+                <button type="button" class="index__delete-button hide">
+                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 128 128" width="24"
+                        height="24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="16" d="M97.94 30.06 30.06 97.94M30.06 30.06l67.88 67.88"></path>
+                    </svg>
+                </button>
                 <spin-loader show="false"></spin-loader>
                 <img src="" alt="" class="index__image hide" />
                 <label class="index__label" for="dropzone">Upload or drag image here
@@ -55,15 +63,14 @@
                     </svg>
                 </label>
                 <input type="file" class="index__input hide" id="dropzone" accept="image/*" />
-                <section class="index__dropzone">
-                </section>
                 <canvas class="index__canvas"></canvas>
-            </div>
-            <div class="index__controls">
+            </section>
+
+            <section class="index__controls">
                 <label class="index__resolution-label" for="range">Select a resolution: <span
                         class="index__resolution-label--span"></span></label>
                 <input class="index__resolution-range" type="range" id="range" min="2" max="20" value="11" step="1" />
-            </div>
+            </section>
             <a href="#" class="index__link">Download canvas?</a>
     </main>
     <footer class="footer">
