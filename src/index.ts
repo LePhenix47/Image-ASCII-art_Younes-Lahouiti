@@ -247,7 +247,7 @@ function hideLoader(): void {
 }
 
 /**
- * Removes event listeners and hides the label dropzone element.
+ * Handles page events when an image is uploaded.
  *
  * @returns {void}
  */
@@ -270,6 +270,11 @@ function handlePageEvents(): void {
 
 deleteButton.addEventListener("click", resetPageEvents);
 
+/**
+ * Resets page events to their initial state.
+ *
+ * @returns {void}
+ */
 function resetPageEvents(): void {
   //We reset the canvas
   canvasContext.clearRect(0, 0, canvas.width, canvas.height);
