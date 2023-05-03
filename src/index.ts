@@ -19,6 +19,7 @@ import {
 //Components
 import "./components/spin-loader.component";
 import { drawImageCanvas } from "./utils/functions/canvas.functions";
+import { AsciiEffect } from "./utils/classes/ascii-effect.class";
 
 //Main code
 
@@ -31,6 +32,8 @@ const rangeLabelSpan: HTMLSpanElement = selectQuery(
   ".index__resolution-label--span"
 );
 rangeInput.addEventListener("input", changeResolution);
+
+const rangeInputValue: number = Number(rangeInput.value);
 function changeResolution(event: InputEvent) {
   //@ts-ignore
   const inputValue = event.target.value;
@@ -228,6 +231,10 @@ function setImageSource(base64String: string): void {
 const image: HTMLImageElement = selectQuery(".index__image");
 image.addEventListener("load", handleImageChange);
 
+const canvas: HTMLCanvasElement = selectQuery(".index__canvas");
+const canvasContext: CanvasRenderingContext2D = canvas.getContext("2d");
+
+let asciiEffectHandler: AsciiEffect;
 /**
  * Handles the image change event and shows/hides the loader
  *
@@ -240,16 +247,21 @@ async function handleImageChange(event: Event): Promise<void> {
     log("image change", event);
     removeEvents();
     resizeCanvas();
-    canvasContext.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    asciiEffectHandler = new AsciiEffect(
+      canvasContext,
+      image,
+      canvas.width,
+      canvas.height
+    );
+    asciiEffectHandler.draw(rangeInputValue);
+    log(asciiEffectHandler);
   } catch (imageChangeError) {
     error({ imageChangeError });
   } finally {
     hideLoader();
   }
 }
-
-const canvas: HTMLCanvasElement = selectQuery(".index__canvas");
-const canvasContext: CanvasRenderingContext2D = canvas.getContext("2d");
 
 const imagePreviewDiv: HTMLElement = selectQuery(".index__image-preview");
 
@@ -258,4 +270,3 @@ function resizeCanvas() {
   canvas.width = width;
   canvas.height = height;
 }
-// resizeCanvas();
