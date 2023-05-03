@@ -15,7 +15,7 @@
 ## GitHub Pages link
 
 To view the web application, please visit the following link:
-
+<https://lephenix47.github.io/Image-ASCII-art_Younes-Lahouiti/>
 
 ## 1. Description
 
@@ -49,7 +49,7 @@ ASCII Image Art is a web application that allows users to upload an image and co
 
 ## 5. Credits
 
-This project was created by [Your Name].
+This project was created by Younes Lahouiti.
 
 ## 6. License
 
