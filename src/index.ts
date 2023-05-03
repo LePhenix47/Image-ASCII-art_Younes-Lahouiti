@@ -18,7 +18,6 @@ import {
 
 //Components
 import "./components/spin-loader.component";
-import { drawImageCanvas } from "./utils/functions/canvas.functions";
 import { AsciiEffect } from "./utils/classes/ascii-effect.class";
 
 //Main code
@@ -26,6 +25,20 @@ import { AsciiEffect } from "./utils/classes/ascii-effect.class";
 const main: HTMLElement = selectQuery("main");
 const labelDropzone: HTMLLabelElement = selectQuery(".index__label");
 const fileUploadInput: HTMLInputElement = selectQuery(".index__input");
+
+/*
+//Canvas effect
+*/
+const image: HTMLImageElement = selectQuery(".index__image");
+image.addEventListener("load", handleImageChange);
+
+const imagePreviewDiv: HTMLElement = selectQuery(".index__image-preview");
+const spinLoader: HTMLElement = selectQuery("spin-loader");
+
+const canvas: HTMLCanvasElement = selectQuery(".index__canvas");
+const canvasContext: CanvasRenderingContext2D = canvas.getContext("2d");
+
+let asciiEffectHandler: AsciiEffect;
 
 const downloadButton: HTMLAnchorElement = selectQuery(".index__link");
 
@@ -36,6 +49,13 @@ const rangeLabelSpan: HTMLSpanElement = selectQuery(
 rangeInput.addEventListener("input", changeResolution);
 
 const rangeInputValue: number = Number(rangeInput.value);
+
+document.addEventListener("dragenter", handleDragEnter);
+document.addEventListener("dragleave", handleDragLeave);
+
+labelDropzone.addEventListener("dragover", handleDragOver);
+labelDropzone.addEventListener("drop", handleFileDrop);
+fileUploadInput.addEventListener("change", handleFileUpload);
 
 /**
  * Changes the resolution of the ASCII image
@@ -62,9 +82,6 @@ function changeResolution(event: InputEvent): void {
     asciiEffectHandler.draw(inputValue);
   }
 }
-
-document.addEventListener("dragenter", handleDragEnter);
-document.addEventListener("dragleave", handleDragLeave);
 
 /**
  * Adds the overlay and highlight effect when dragging a file anywhere in the website
@@ -117,8 +134,6 @@ function handleDragLeave(event: DragEvent): void {
   }
 }
 
-labelDropzone.addEventListener("dragover", handleDragOver);
-labelDropzone.addEventListener("drop", handleFileDrop);
 /**
  * Handles the file drop event
  *
@@ -171,7 +186,6 @@ async function handleFileDrop(event: DragEvent): Promise<void> {
   }
 }
 
-fileUploadInput.addEventListener("change", handleFileUpload);
 /**
  * Handles the file upload event
  *
@@ -210,8 +224,6 @@ async function handleFileUpload(event: Event): Promise<void> {
     hideLoader();
   }
 }
-
-const spinLoader: HTMLElement = selectQuery("spin-loader");
 
 /**
  * Shows the loader by modifying the "show" attribute of the spin loader element to true
@@ -253,16 +265,6 @@ function removeEvents(): void {
 function setImageSource(base64String: string): void {
   image.src = base64String;
 }
-/*
-//Canvas effect
-*/
-const image: HTMLImageElement = selectQuery(".index__image");
-image.addEventListener("load", handleImageChange);
-
-const canvas: HTMLCanvasElement = selectQuery(".index__canvas");
-const canvasContext: CanvasRenderingContext2D = canvas.getContext("2d");
-
-let asciiEffectHandler: AsciiEffect;
 /**
  * Handles the image change event and shows/hides the loader
  *
@@ -294,8 +296,6 @@ async function handleImageChange(event: Event): Promise<void> {
   }
 }
 
-const imagePreviewDiv: HTMLElement = selectQuery(".index__image-preview");
-
 /**
  * Resize the canvas based on the size of the image preview div
  *
@@ -322,8 +322,12 @@ function setCanvasContextFont(
   context.font = `${fontSize}`;
 }
 
-// Function to trigger the download
-function downloadAsciiImage() {
+/**
+ * Function to trigger the download of the canvas image.
+ *
+ * @returns {void}
+ */
+function downloadAsciiImage(): void {
   // Convert canvas to data URL
   const dataURL: string = canvas.toDataURL("image/png");
 
