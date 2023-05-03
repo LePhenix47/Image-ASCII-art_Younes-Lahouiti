@@ -23,8 +23,13 @@ import { AsciiEffect } from "./utils/classes/ascii-effect.class";
 //Main code
 
 const main: HTMLElement = selectQuery("main");
+
 const labelDropzone: HTMLLabelElement = selectQuery(".index__label");
+labelDropzone.addEventListener("dragover", handleDragOver);
+labelDropzone.addEventListener("drop", handleFileDrop);
+
 const fileUploadInput: HTMLInputElement = selectQuery(".index__input");
+fileUploadInput.addEventListener("change", handleFileUpload);
 
 /*
 //Canvas effect
@@ -42,20 +47,18 @@ let asciiEffectHandler: AsciiEffect;
 
 const downloadButton: HTMLAnchorElement = selectQuery(".index__link");
 
+const deleteButton: HTMLButtonElement = selectQuery(".index__delete-button");
+
 const rangeInput: HTMLInputElement = selectQuery(".index__resolution-range");
+rangeInput.addEventListener("input", changeResolution);
 const rangeLabelSpan: HTMLSpanElement = selectQuery(
   ".index__resolution-label--span"
 );
-rangeInput.addEventListener("input", changeResolution);
 
 const rangeInputValue: number = Number(rangeInput.value);
 
 document.addEventListener("dragenter", handleDragEnter);
 document.addEventListener("dragleave", handleDragLeave);
-
-labelDropzone.addEventListener("dragover", handleDragOver);
-labelDropzone.addEventListener("drop", handleFileDrop);
-fileUploadInput.addEventListener("change", handleFileUpload);
 
 /**
  * Changes the resolution of the ASCII image
@@ -248,11 +251,46 @@ function hideLoader(): void {
  *
  * @returns {void}
  */
-function removeEvents(): void {
+function handlePageEvents(): void {
+  //Hide the dropone
   addClass(labelDropzone, "hide");
 
+  //We remove event listeners on the document
   document.removeEventListener("dragenter", handleDragEnter);
   document.removeEventListener("dragleave", handleDragLeave);
+
+  // Shpw the delete button
+  removeClass(downloadButton, "hide");
+  downloadButton.addEventListener("click", downloadAsciiImage);
+
+  //We show the delete button
+  removeClass(deleteButton, "hide");
+  //Add an event lisenter here
+}
+
+deleteButton.addEventListener("click", resetPageEvents);
+
+function resetPageEvents(): void {
+  //We reset the canvas
+  canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+
+  //We show the dropzone
+  removeClass(labelDropzone, "hide");
+
+  //We add back again the `document` event listeners
+  document.addEventListener("dragenter", handleDragEnter);
+  document.addEventListener("dragleave", handleDragLeave);
+
+  // We remove the event listener for the download button
+  addClass(downloadButton, "hide");
+  downloadButton.removeEventListener("click", downloadAsciiImage);
+
+  //We reset the image source
+  image.src = "";
+
+  //We show the delete button
+  addClass(deleteButton, "hide");
+  //Add an event lisenter remover here
 }
 
 /**
@@ -265,6 +303,7 @@ function removeEvents(): void {
 function setImageSource(base64String: string): void {
   image.src = base64String;
 }
+
 /**
  * Handles the image change event and shows/hides the loader
  *
@@ -275,11 +314,8 @@ function setImageSource(base64String: string): void {
 async function handleImageChange(event: Event): Promise<void> {
   try {
     log("image change", event);
-    removeEvents();
+    handlePageEvents();
     resizeCanvas();
-
-    // Attach event listener to the download button
-    downloadButton.addEventListener("click", downloadAsciiImage);
 
     asciiEffectHandler = new AsciiEffect(
       canvasContext,

@@ -1,7 +1,7 @@
 /**
  * A simplified version of `document.querySelector()`
  *
- * @param {string} query - HTML Element to select
+ * @param {string} query - CSS query of the HTML Element to select
  * @param {any} container - HTML Element to select the query from
  * @returns  - The element selected or `null` if the element doesn't exist
  */
@@ -26,7 +26,7 @@ export function selectQuery(query: string, container?: any): any {
 /**
  * A simplified version of `document.querySelectorAll()`
  *
- * @param {string} query - HTML Element to select
+ * @param {string} query - CSS query of the HTML Elements to select
  * @param {any} container - HTML Element to select the query from
  * @returns {any[]|null} - An array with all the elements selected or `null` if the element doesn't exist
  */
@@ -68,14 +68,14 @@ export function getParent(elementOfReference: HTMLElement): any {
  * Returns the closest ancestor element of a given HTML element based on a CSS selector.
  *
  * @param {any} elementOfReference - The HTML element of reference.
- * @param {string} [cssSelector=""] - The CSS selector to use to select the ancestor element. Default is an empty string.
+ * @param {string} - The CSS selector to use to select the ancestor element. Default is an empty string.
  *
  * @returns {any|null} The closest ancestor element that matches the CSS selector, or null if no ancestor element matches the selector.
  */
 
 export function getAncestor(
   elementOfReference: any,
-  cssSelector: string = ""
+  cssSelector: string
 ): any | null {
   return elementOfReference.closest(cssSelector);
 }
