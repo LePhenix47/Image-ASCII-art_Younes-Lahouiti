@@ -239,7 +239,8 @@ async function handleImageChange(event: Event): Promise<void> {
   try {
     log("image change", event);
     removeEvents();
-    canvasContext.drawImage(image, 0, 0);
+    resizeCanvas();
+    canvasContext.drawImage(image, 0, 0, canvas.width, canvas.height);
   } catch (imageChangeError) {
     error({ imageChangeError });
   } finally {
@@ -257,4 +258,4 @@ function resizeCanvas() {
   canvas.width = width;
   canvas.height = height;
 }
-resizeCanvas();
+// resizeCanvas();

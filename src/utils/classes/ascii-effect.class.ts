@@ -2,7 +2,7 @@ import { Cell } from "./cell.class";
 
 export class AsciiEffect {
   private imageCellArray: any[];
-  private pixels: ImageData;
+  private pixelsData: ImageData;
   context: CanvasRenderingContext2D;
   width: number;
   height: number;
@@ -36,7 +36,7 @@ export class AsciiEffect {
     We now have all the pixel color values
     */
     //@ts-ignore
-    this.pixels = this.context.getImageData(0, 0, this.width, this.height);
+    this.pixelsData = this.context.getImageData(0, 0, this.width, this.height);
   }
 
   /*
@@ -48,34 +48,40 @@ export class AsciiEffect {
     this.imageCellArray = [];
 
     //We loop on each row
-    for (let y = 0; y < this.pixels.height; y += cellSize) {
-      // const row = imageCellArray[y];
+    for (let y = 0; y < this.pixelsData.height; y += cellSize) {
+      // const row = this.pixelsData.height[y];
 
       //We loop on each cell of the row
-      for (let x = 0; x < this.pixels.width; x += cellSize) {
-        //We iterate through each pixel knowing that our pixel array hold rgba value for each pixel, 1 pixel = 4 *
+      for (let x = 0; x < this.pixelsData.width; x += cellSize) {
+        //const cellRow = this.pixelsData.width[x]
+        //We iterate through each pixel knowing that our pixel array hold rgba value for each pixel, 1 pixel = 4 spots in the array
 
         const cellPosX: number = x * 4;
         const cellPosY: number = y * 4;
 
         //Beyond here I have 0 idea what is happening
-        const pos: number = cellPosY * this.pixels.width + cellPosX;
+        const pos: number = cellPosX + cellPosY * this.pixelsData.width;
 
-        const alpha = this.pixels.data[pos + 3];
-        if (alpha > 128) {
-          const red = this.pixels.data[pos];
-          const green = this.pixels.data[pos + 1];
-          const blue = this.pixels.data[pos + 2];
+        const alpha: number = this.pixelsData.data[pos + 3];
 
-          const total = red + green + blue;
-          const averageColor = total / 3;
-          const color = `rgb(${red}, ${green}, ${blue})`;
-          const symbol = this.convertToSymbol(averageColor);
+        const isTransparent: boolean = alpha < 128;
+        if (isTransparent) {
+          continue;
+        }
 
-          if (total > 200) {
-            const newCell = new Cell(this.context, x, y, symbol, color);
-            this.imageCellArray.push(newCell);
-          }
+        const red: number = this.pixelsData.data[pos + 0];
+        const green: number = this.pixelsData.data[pos + 1];
+        const blue: number = this.pixelsData.data[pos + 2];
+
+        const total: number = red + green + blue;
+        const averageColorBrightness: number = total / 3;
+        const color: string = `rgb(${red}, ${green}, ${blue})`;
+        const symbol: string = this.convertToSymbol(averageColorBrightness);
+
+        const isBrightEnough: boolean = total > 200;
+        if (isBrightEnough) {
+          const newCell: Cell = new Cell(this.context, x, y, symbol, color);
+          this.imageCellArray.push(newCell);
         }
       }
     }
